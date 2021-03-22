@@ -7,6 +7,8 @@
 
 namespace agl
 {
+    //use this for bool instead primitave type myType 
+    //mytype = lines... etc 
    enum PrimitiveType {UNDEFINED, LINES, TRIANGLES};
    class canvas
    {
@@ -42,6 +44,16 @@ namespace agl
 
    private:
       ppm_image _canvas;
+      int height;
+      int width;
+      //ppm_image(h, w);
+      bool inlines = false;
+      //lines<int, int>;
+      bool intri = false;
+      int lines[2];
+      ppm_pixel currcolor;
+    
+
    };
 }
 

@@ -16,15 +16,18 @@ canvas::canvas(int w, int h) : _canvas(w, h)
 	//enu 
 	int height = h;
 	int width = w;
-	ppm_image(h, w);
+	ppm_image _canvas(h, w);
 	bool inlines = false;
-	int lines[2] = { -1, -1 };
+	int lines[2];
+	lines[0] = -1;
+	lines[1] = -1;
 	int triangles[4] = { -1, -1, -1, -1 };
 	bool intri = false;
 	ppm_pixel currcolor;
 	currcolor.b = 0;
 	currcolor.g = 0;
 	currcolor.r = 0;
+	//cout << lines[1];
 
 }
 
@@ -32,8 +35,18 @@ canvas::~canvas()
 {
 	int height = 0;
 	int width = 0;
-	ppm_image(0, 0);
-
+	ppm_image _canvas(0, 0);
+	bool inlines = false;
+	int lines[2] = { -1, -1 };
+	//lines[0] = -1;
+	//lines[1] = -1;
+	int triangles[4] = { -1, -1, -1, -1 };
+	bool intri = false;
+	ppm_pixel currcolor;
+	currcolor.b = 0;
+	currcolor.g = 0;
+	currcolor.r = 0;
+	//cout << lines[1];
 }
 
 void canvas::save(const std::string& filename)
@@ -43,11 +56,11 @@ void canvas::save(const std::string& filename)
 
 void canvas::begin(PrimitiveType type)
 {
-	if (type = LINES) {
+	if (type == LINES) {
 		inlines = true;
 	}
 
-	if (type = TRIANGLES) {
+	if (type == TRIANGLES) {
 		intri = true;
 	}
 
@@ -57,7 +70,10 @@ void canvas::end()
 {
 	inlines = false;
 	intri = false;
-	int lines[2] = { -1, -1 };
+	lines[0] = -1;
+	lines[1] = -1;
+	cout << lines[0];
+
 	int triangles[4] = { -1, -1, -1, -1 };
 
 
@@ -84,8 +100,7 @@ void canvas::vertex(int x, int y)
 	}
 	*/
 	if (inlines) {
-		//cout << "in lines";
-
+		//cout << lines[0];
 		if (lines[0] == -1) {
 			lines[0] = x;
 			lines[1] = y;
@@ -93,37 +108,41 @@ void canvas::vertex(int x, int y)
 			return;
 		}
 		else {
-			//cout << (int)lines[0];
+		//	cout << lines[0];
 
 			int tempx = x;
 			int tempy = y;
 			int x1 = lines[0];
 			int y1 = lines[1];
+			swap(x1, x);
+			swap(y1, y);
 			int dx = x1 - x;
 			int dy = y1 - y;
 			//checking if too steep 
-			if (dy > dx) {
+			//if (dy > dx) {
 
-				swap(x1, y1);
-				swap(x, y);
-				dx = x1 - x;
-				dy = y1 - y;
-			}
+			//	swap(x1, y1);
+			//	swap(x, y);
+			//	dx = x1 - x;
+			//	dy = y1 - y;
+		//	}
 
 			int v = 2 * dy - dx;
-			ppm_pixel col = ppm_pixel();
-			col.b = 225;
-			col.g = 225;
-			col.r = 225;
+			//ppm_pixel col = ppm_pixel();
+			//col.b = 225;
+			//col.g = 225;
+			//col.r = 225;
 
 			while (x < x1) {
 				if (v >= 0) {
-					_canvas.set(x, y, col);
+					cout << currcolor.r;
+					cout << currcolor.g;
+					_canvas.set(x, y, currcolor);
 					y = y + 1;
 					v = v + 2 * dy - 2 * dx;
 				}
 				else {
-					_canvas.set(x, y, col);
+					_canvas.set(x, y, currcolor);
 					v = v + 2 * dy;
 				}
 				x = x + 1;
@@ -194,25 +213,25 @@ void canvas::vertex(int x, int y)
 
 void canvas::color(unsigned char r, unsigned char g, unsigned char b)
 {
-	ppm_pixel col = ppm_pixel();
+	ppm_pixel colo = ppm_pixel();
 	cout << b;
-	col.b = b;
-	col.g = g;
-	col.r = r;
+	colo.b = b;
+	colo.g = g;
+	colo.r = r;
 	//_canvas.set(1, 1, col);
-	ppm_pixel currcolor = col;
+	ppm_pixel currcolor = colo;
 
 }
 
 void canvas::background(unsigned char r, unsigned char g, unsigned char b)
 {
-	ppm_pixel col = ppm_pixel();
-	col.b = b;
-	col.g = g;
-	col.r = r;
-	for (int i = 0; i < _canvas.height() - 1; i++) {
-		for (int j = 0; j < _canvas.width() - 1; j++) {
-			_canvas.set(i, j, col);
+	ppm_pixel colo = ppm_pixel();
+	colo.b = b;
+	colo.g = g;
+	colo.r = r;
+	for (int i = 0; i < _canvas.height() ; i++) {
+		for (int j = 0; j < _canvas.width() ; j++) {
+			_canvas.set(i, j, colo);
 		}
 	}
 	//_canvas.set(1, 2, col);

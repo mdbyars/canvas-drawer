@@ -10,15 +10,15 @@ int main(int argc, char** argv)
  //  art.save("new.ppm");
 
    // test line interpolation
-   canvas drawer = canvas(640, 380);
-   drawer.background(100, 0, 100);
+   canvas drawer = canvas(100, 100);
+   drawer.background(225, 0, 100);
   // cout << "were here ~~~~~~~~~~~~~~~~";
    drawer.begin(LINES);
-   drawer.color(0, 0, 255);
-   drawer.vertex(0, 0);
+   drawer.color(0, 225, 0);
+   drawer.vertex(2, 2);
   // drawer.color(0, 255, 255);
-   drawer.vertex(100, 100);
+   drawer.vertex(50, 40);
    drawer.end();
-   drawer.save("debugging.ppm");
+   drawer.save("debug.ppm");
 }
 

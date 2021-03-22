@@ -52,7 +52,7 @@ namespace agl
       bool inlines = false;
       //lines<int, int>;
       bool intri = false;
-      int lines[2];
+      int lines[2] = { -1, -1 };
       ppm_pixel currcolor;
       int triangles[4];
 

@@ -182,6 +182,7 @@ void canvas::vertex(int x, int y)
 					//float t = (v1x, v1y) x (currx, curry) / (v1x, v1y)x(v2x, v2y);
 					//check to see if we are in the triangle
 					//if()
+					int crossx;
 				}
 			}
 

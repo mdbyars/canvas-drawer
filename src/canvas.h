@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include "ppm_image.h"
+#include <iostream>     // std::cout
+#include <algorithm>    // std::max
 
 namespace agl
 {
@@ -52,7 +54,8 @@ namespace agl
       bool intri = false;
       int lines[2];
       ppm_pixel currcolor;
-    
+      int triangles[4];
+
 
    };
 }

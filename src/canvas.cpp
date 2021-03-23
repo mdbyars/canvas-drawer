@@ -101,6 +101,7 @@ void canvas::vertex(int x, int y)
 	*/
 	if (inlines) {
 		//cout << lines[0];
+		//if there has been no previous vertex, store this one 
 		if (lines[0] == -1) {
 			lines[0] = x;
 			lines[1] = y;
@@ -109,24 +110,29 @@ void canvas::vertex(int x, int y)
 		}
 		else {
 		//	cout << lines[0];
-
+			//a place to store the given value to put it back in lines later 
 			int tempx = x;
 			int tempy = y;
-			int x1 = lines[0];
-			int y1 = lines[1];
-			swap(x1, x);
-			swap(y1, y);
-		//	cout << tempx;
-			int dx = x1 - x;
-			int dy = y1 - y;
+			int x1 = x;
+			int y1 = y;
+			//get the previous vertex 
+			int x0 = lines[0];
+			int y0 = lines[1];
+			//swap(x1, x);
+			//swap(y1, y);
+			//cout << tempx;
+			int dx = x1 - x0;
+			int dy = y1 - y0;
+			cout << dy; 
+			cout << dx;
 			//checking if too steep 
-			//if (dy > dx) {
+			if (dy > dx) {
 
-			//	swap(x1, y1);
-			//	swap(x, y);
-			//	dx = x1 - x;
-			//	dy = y1 - y;
-		//	}
+				swap(x1, y1);
+				swap(x0, y0);
+				dx = x1 - x0;
+				dy = y1 - y0;
+			}
 
 			int v = 2 * dy - dx;
 			//ppm_pixel col = ppm_pixel();
@@ -134,19 +140,19 @@ void canvas::vertex(int x, int y)
 			//col.g = 225;
 			//col.r = 225;
 
-			while (x < x1) {
+			while (x0 < x1) {
 				if (v >= 0) {
 				//	cout << currcolor.r;
 					//cout << currcolor.g;
-					_canvas.set(x, y, currcolor);
-					y = y + 1;
+					_canvas.set(x0, y0, currcolor);
+					y0 = y0 + 1;
 					v = v + 2 * dy - 2 * dx;
 				}
 				else {
-					_canvas.set(x, y, currcolor);
+					_canvas.set(x0, y0, currcolor);
 					v = v + 2 * dy;
 				}
-				x = x + 1;
+				x0 = x0 + 1;
 
 
 			}

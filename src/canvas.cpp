@@ -72,7 +72,7 @@ void canvas::end()
 	intri = false;
 	lines[0] = -1;
 	lines[1] = -1;
-	cout << lines[0];
+	//cout << lines[0];
 
 	int triangles[4] = { -1, -1, -1, -1 };
 
@@ -116,6 +116,7 @@ void canvas::vertex(int x, int y)
 			int y1 = lines[1];
 			swap(x1, x);
 			swap(y1, y);
+		//	cout << tempx;
 			int dx = x1 - x;
 			int dy = y1 - y;
 			//checking if too steep 
@@ -135,8 +136,8 @@ void canvas::vertex(int x, int y)
 
 			while (x < x1) {
 				if (v >= 0) {
-					cout << currcolor.r;
-					cout << currcolor.g;
+				//	cout << currcolor.r;
+					//cout << currcolor.g;
 					_canvas.set(x, y, currcolor);
 					y = y + 1;
 					v = v + 2 * dy - 2 * dx;
@@ -151,7 +152,7 @@ void canvas::vertex(int x, int y)
 			}
 
 			lines[0] = tempx;
-			lines[0] = tempy;
+			lines[1] = tempy;
 		}
 
 
@@ -214,7 +215,6 @@ void canvas::vertex(int x, int y)
 void canvas::color(unsigned char r, unsigned char g, unsigned char b)
 {
 	ppm_pixel colo = ppm_pixel();
-	cout << b;
 	colo.b = b;
 	colo.g = g;
 	colo.r = r;

@@ -17,7 +17,8 @@ int main(int argc, char** argv)
    drawer.color(0, 225, 0);
    drawer.vertex(2, 2);
   // drawer.color(0, 255, 255);
-   drawer.vertex(50, 40);
+   drawer.vertex(10, 3);
+   drawer.vertex(90, 90);
    drawer.end();
    drawer.save("debug.ppm");
 }

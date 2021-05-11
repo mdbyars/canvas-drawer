@@ -13,11 +13,11 @@ int main(int argc, char** argv)
    canvas drawer = canvas(100, 100);
    drawer.background(225, 0, 100);
   // cout << "were here ~~~~~~~~~~~~~~~~";
-   drawer.begin(LINES);
+   drawer.begin(TRIANGLES);
    drawer.color(0, 225, 0);
    drawer.vertex(2, 2);
   // drawer.color(0, 255, 255);
-   drawer.vertex(10, 3);
+   drawer.vertex(10, 40);
    drawer.vertex(90, 90);
    drawer.end();
    drawer.save("debug.ppm");

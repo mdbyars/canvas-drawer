@@ -44,6 +44,10 @@ namespace agl
       // Fill the canvas with the given background color
       void background(unsigned char r, unsigned char g, unsigned char b);
 
+      float getArea(int x1, int y1, int x2, int y2, int x3, int y3);
+
+      bool insideTri(int x1, int y1, int x2, int y2, int x3, int y3, int x, int y);
+
    private:
       ppm_image _canvas;
       int height;
@@ -54,7 +58,7 @@ namespace agl
       bool intri = false;
       int lines[2] = { -1, -1 };
       ppm_pixel currcolor;
-      int triangles[4];
+      int triangles[6] = { -1, -1, -1, -1, -1, -1 };
 
 
    };

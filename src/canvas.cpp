@@ -21,7 +21,7 @@ canvas::canvas(int w, int h) : _canvas(w, h)
 	int lines[2];
 	lines[0] = -1;
 	lines[1] = -1;
-	int triangles[4] = { -1, -1, -1, -1 };
+	int triangles[6] = { -1, -1, -1, -1, -1, -1 };
 	bool intri = false;
 	ppm_pixel currcolor;
 	currcolor.b = 0;
@@ -40,7 +40,7 @@ canvas::~canvas()
 	int lines[2] = { -1, -1 };
 	//lines[0] = -1;
 	//lines[1] = -1;
-	int triangles[4] = { -1, -1, -1, -1 };
+	int triangles[6] = { -1, -1, -1, -1, -1, -1 };
 	bool intri = false;
 	ppm_pixel currcolor;
 	currcolor.b = 0;
@@ -74,7 +74,7 @@ void canvas::end()
 	lines[1] = -1;
 	//cout << lines[0];
 
-	int triangles[4] = { -1, -1, -1, -1 };
+	int triangles[6] = { -1, -1, -1, -1, -1, -1 };
 
 
 }
@@ -174,16 +174,30 @@ void canvas::vertex(int x, int y)
 			triangles[1] = y;
 			return;
 		}
-		if (triangles[2] == -1) {
+		else if (triangles[2] == -1) {
 			triangles[2] = x;
 			triangles[3] = y;
 			return;
 		}
-		else {
+		else if (triangles[4] == -1) {
+			triangles[4] = x;
+			triangles[5] = y;
 			int x1 = triangles[0];
 			int y1 = triangles[1];
 			int x2 = triangles[2];
 			int y2 = triangles[3];
+			int x3 = triangles[4];
+			int y3 = triangles[5];
+
+			for (int i = 0; i < _canvas.height(); i++) {
+				for (int j = 0; j < _canvas.width(); j++) {
+					if (insideTri(x1, y1, x2, y2, x3, y3, i, j)) {
+						cout << i << x1 ;
+						_canvas.set(i, j, currcolor);
+					}
+				}
+			}
+			/*
 			int maxx = std::max(x1, x2);
 			maxx = std::max(maxx, x);
 			int minx = std::min(x1, x2);
@@ -211,11 +225,26 @@ void canvas::vertex(int x, int y)
 					int crossx;
 				}
 			}
+			*/
 
 		}
 
 	}
 
+}
+
+float canvas::getArea(int x1, int y1, int x2, int y2, int x3, int y3)
+{
+	return abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0);
+}
+
+bool canvas::insideTri(int x1, int y1, int x2, int y2, int x3, int y3, int x, int y)
+{
+	float a= getArea(x1, y1, x2, y2, x3, y3);
+	float a1 = getArea(x, y, x2, y2, x3, y3);
+	float a2 = getArea(x1, y1, x, y, x3, y3);
+	float a3 = getArea(x1, y1, x2, y2, x, y);
+	return (a == a1 + a2 + a3);
 }
 
 void canvas::color(unsigned char r, unsigned char g, unsigned char b)

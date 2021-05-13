@@ -19,6 +19,10 @@ int main(int argc, char** argv)
   // drawer.color(0, 255, 255);
    drawer.vertex(10, 40);
    drawer.vertex(90, 90);
+   drawer.begin(LINES);
+   drawer.color(225, 0, 0);
+   drawer.vertex(10, 10);
+   drawer.vertex(100, 100);
    drawer.end();
    drawer.save("debug.ppm");
 }
